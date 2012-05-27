@@ -1,0 +1,10 @@
+{% load crispy_forms_field %}
+<td>  
+  <span>
+    <a href="#" id="btn-{{ field.auto_id }}" class="btn btn-danger formsetdelete">Delete</a>
+    <span class="hidden">
+    {% crispy_field field %}
+    {{ field.label|safe }}
+    </span>
+  </span>
+</td>

@@ -1,0 +1,4 @@
+django_crispy_extensions.egg-info/
+dist/
+*.pyc
+*.pyo
