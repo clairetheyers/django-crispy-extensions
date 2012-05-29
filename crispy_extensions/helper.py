@@ -12,7 +12,7 @@ __docformat__ = 'restructuredtext en'
 
 class FormsetContainer(object):
     """
-    Store formsets. You're going to have to subclass this so it nows how to
+    Store formsets. You're going to have to subclass this so it knows how to
     save its formsets.
     """
     def __init__(self, name, klass, prefix=None):
@@ -29,6 +29,6 @@ class FormsetContainer(object):
     
     def save(self, boundformset, instance=None):
         """How does your formset want to save?"""
-        pass
+        raise TypeError("You need to define FormsetContainer.save() yourself")
         
         
