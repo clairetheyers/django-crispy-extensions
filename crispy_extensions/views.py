@@ -11,8 +11,7 @@ __docformat__ = 'restructuredtext en'
 
 
 from django.http import HttpResponseRedirect
-from django.views.generic import ModelFormMixin
-
+from django.views.generic.edit import ModelFormMixin
 
 class ModelFormFormsetMixin(ModelFormMixin):
     """
@@ -47,7 +46,7 @@ class ModelFormFormsetMixin(ModelFormMixin):
                 
     def get_form(self, form_class):
         basekwargs = self.get_formset_kwargs()
-        form = super(CrispyFormsetMixin, self).get_form(form_class)
+        form = super(ModelFormFormsetMixin, self).get_form(form_class)
         formsetcontainers = self.get_formsetcontainers(form)
         for formsetcontainer in formsetcontainers:
             kwargs = basekwargs.copy()
