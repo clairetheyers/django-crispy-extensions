@@ -27,42 +27,54 @@ class InlineFormSet(object):
     
     https://github.com/pydanny/django-uni-form/pull/69/files
     
-    class MyForm(forms.ModelForm):
+    Usage::
     
-        class Meta:
-            model = MyModel
+      from crispy_forms.helper import FormHelper
+      from crispy_forms.layout import Div, Fieldset, Layout
+      
+      from crispy_extensions.forms import ModelFormWithFormsets
+      
+      from models import Contact, Phone
+      
+      class MyForm(ModelFormWithFormsets):
+      
+          class Meta:
+              model = Contact
             
-        def __init__(self, *args, **kwargs):
-            self.helper = helper.FormHelper()
-        
-            self.helper.layout = layout.Layout(
-                layout.Fieldset(
-                    'Basic details',
-                    'firstname',
-                    'secondname',
-                    ),
-                InlineFormSet('Phone numbers', 'phonenumbers'),
-                )
-            return super(MyForm, self).__init__(*args, **kwargs)
+          @property
+          def helper(self):
+              myhelper = FormHelper()
+          
+              myhelper.layout = Layout(
+                  Fieldset(
+                      'Basic details',
+                      'firstname',
+                      'secondname',
+                      ),
+                  InlineFormSet('Phone numbers', 'phonenumbers'),
+                  )
+              return myhelper
             
-    class PhoneNumberForm(forms.ModelForm):
-    
-        class Meta:
-            model = MyForm
             
-        def __init__(self, *args, **kwargs):
-            self.helper = helper.FormHelper()
-            self.helper.form_tag = False
+      class PhoneNumberForm(ModelFormWithFormsets):
+      
+          class Meta:
+              model = Phone
+              
+          @property
+          def helper(self):
+              myhelper = FormHelper()
+              myhelper.form_tag = False
             
-            self.helper.layout = layout.Layout(
-                layout.Div(
-                    'phonenumber',
-                    ),
-                )
-            return super(PhoneNumberForm, self).__init__(*args, **kwargs)
+              myhelper.layout = Layout(
+                  layout.Div(
+                      'phonenumber',
+                      ),
+                  )
+              return myhelper
             
-    form = MyForm()
-    form.phonenumbers = formset_factory(PhoneNumberForm)
+      form = MyForm()
+      form.phonenumbers = formset_factory(PhoneNumberForm)
     """
     def __init__(self, title, formset_name, *fields, **kwargs):
         self.title = title
@@ -119,15 +131,16 @@ class GenericContainer(object):
     HTML elements, and as soon as you want to change the template the names
     make no sense.
     
-    requires:
-        `template` (template name)
-        
-    optional:
-        `template_map` (dictionary of the form {'fieldname': 'template_name'}
-            which allows for you to override the template used for the given
-            field)
-        `all_fields_template` (template name for rendering *every* field.
-            Overridden by `template_map` if an entry exists)
+    :Parameters:
+      template
+        (required) template name
+      template_map
+        (optional) dictionary of the form {'fieldname': 'template_name'}
+        which allows for you to override the template used for the given
+        field
+      all_fields_template
+        (optional) template name for rendering *every* field. Overridden by
+        `template_map` if an entry exists
         
     any other kwargs are passed through to the template in a dict called extra
     """
@@ -139,7 +152,7 @@ class GenericContainer(object):
         self.fields = fields
         self.template = kwargs.pop('template', self.template)
         if self.template is None:
-            raise ImproperlyConfigured("GenericContainer layout requires a template")
+            raise TypeError("GenericContainer layout requires a template")
         self.template_map = kwargs.pop('template_map', self.template_map)
         self.all_fields_template = kwargs.pop('all_fields_template', self.all_fields_template)
         self.extra = kwargs
