@@ -22,7 +22,7 @@ of the following statements then this may not be the project for you:
  * The ``helper`` and ``layout`` approach taken by `Crispy Forms`_ is a good
    one, or at the very least one worth extending to get the benefits that 
    `Crispy Forms` bring
- * Django's Class Based Views are a **Good Thing|(TM)|**
+ * Django's Class Based Views are a **Good Thing**
  
 To date all I'm doing is scratching my own itch, which is as follows:
 
@@ -56,4 +56,3 @@ problems.
 More documentation to come.
  
 .. _Crispy Forms: https://github.com/maraujop/django-crispy-forms
-.. |(TM)| unicode:: U+2122
