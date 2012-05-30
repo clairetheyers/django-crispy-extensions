@@ -179,7 +179,7 @@ class InlineTabularForm(GenericContainer):
             fields = list(fields)
             fields.append(DELETION_FIELD_NAME)
             fields = tuple(fields)
-            template_map = kwargs.pop('template_map', {})
+            template_map = kwargs.pop('template_map', self.template_map)
             if DELETION_FIELD_NAME not in template_map:
                 template_map[DELETION_FIELD_NAME] = 'crispy_extensions/formset-delete-button.html'
             kwargs['template_map'] = template_map

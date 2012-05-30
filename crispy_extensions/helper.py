@@ -29,6 +29,6 @@ class FormsetContainer(object):
     
     def save(self, boundformset, instance=None):
         """How does your formset want to save?"""
-        raise TypeError("You need to define FormsetContainer.save() yourself")
+        raise NotImplementedError("You need to define FormsetContainer.save() yourself")
         
         
