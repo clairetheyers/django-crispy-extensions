@@ -1,0 +1,35 @@
+{% load crispy_forms_tags %}
+{% load crispy_extensions %}
+
+{{ formset.management_form }}
+<div class="emptyTemplate" style="display:none;">
+{% with formset.empty_form as form %}
+  {% crispy form %}
+{% endwith %}
+</div>
+
+<h2 class="tabular-form-title">{{ form_title }}</h2>
+<table>
+  {{ formset|crispy_table_header }}
+  <tbody>
+    {% for form in formset %}
+      {% if form.non_field_errors|length > 0 %}
+        <tr>
+          <td colspan="{{ formset|crispy_column_count }}">
+            {% for error in form.non_field_errors %}
+              <p class="errorField">{{ error }}</p>
+            {% endfor %}
+            {% for hidden in form.hidden_fields %}
+              {% if hidden.errors %}
+                {% for error in hidden.errors %}
+                  <p class="errorField">{{ hidden.label }}: {{ error }}</p>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endif %}
+      {% crispy form %}
+    {% endfor %}
+  </tbody>
+</table>

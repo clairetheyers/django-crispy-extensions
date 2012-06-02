@@ -84,7 +84,14 @@ class InlineFormSet(object):
         self.group_css = kwargs.get('group_css_class', u'formsetGroup')
         # We're using our own template here - this is an extension to crispy,
         # not part of it (hence not looking up the crispy template pack)
-        self.template = kwargs.get('template', 'crispy_extensions/formset.html')
+        form_style = kwargs.get('form_style', 'standard')
+        if form_style not in ['standard', 'tabular']:
+            raise TypeError('form_style can only be standard or tabular')
+        if form_style == 'standard':
+            self.template = 'crispy_extensions/formset.html'
+        elif form_style == 'tabular':
+            self.template = 'crispy_extensions/tabular-formset.html'
+        self.template = kwargs.get('template', self.template)
         
         
     def render(self, form, *args, **kwargs):
