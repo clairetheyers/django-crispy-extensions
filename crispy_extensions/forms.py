@@ -19,7 +19,7 @@ class ModelFormWithFormsets(ModelForm):
     uses our extensions
     """
     def is_valid(self):
-        formsetcontainers = self.helper.formsets
+        formsetcontainers = getattr(self.helper, 'formsets', [])
         valid = []
         for formsetcontainer in formsetcontainers:
             formset = formsetcontainer.get_bound(self)
