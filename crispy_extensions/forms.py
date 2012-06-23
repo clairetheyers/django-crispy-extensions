@@ -40,7 +40,7 @@ class ModelFormWithFormsets(ModelForm):
                 fields = form.fields
             else:
                 fields = form.base_fields
-            return any([ f.widget.needs_multipart_form for f in fields ])
+            return any([ f.widget.needs_multipart_form for f in fields.values() ])
         
         is_multipart.extend([ test_multipart(f) for f in formsetcontainers ])
         return any(is_multipart)
