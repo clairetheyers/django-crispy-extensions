@@ -27,11 +27,6 @@ class FormsetContainer(object):
         """Construct the formset"""
         return self.klass(**kwargs)
         
-    def is_multipart(self):
-        """Does this form need a multipart form tag"""
-        fields = self.klass.form.base_fields.values()
-        return any([ f.widget.needs_multipart_form for f in fields ])
-    
     def save(self, boundformset, instance=None):
         """How does your formset want to save?"""
         raise NotImplementedError("You need to define FormsetContainer.save() yourself")
