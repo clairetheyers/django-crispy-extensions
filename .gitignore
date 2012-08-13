@@ -1,5 +1,6 @@
 django_crispy_extensions.egg-info/
 dist/
 crispy-extensions.wp*
+crispy_extensions.wp*
 *.pyc
 *.pyo

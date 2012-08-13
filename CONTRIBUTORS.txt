@@ -3,3 +3,4 @@ Contributors
 ============
 
 * Andy Theyers <andy.theyers@isotoma.com>
+* Claire Theyers <claire@pepik.com>
